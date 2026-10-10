@@ -1,0 +1,581 @@
+{
+  "generated_at": "2026-10-10 02:50:27 UTC",
+  "store_url": "https://www.bdgyoo.com",
+  "auth_mode": "oauth",
+  "store_info": {
+    "websites": [
+      {
+        "id": 1,
+        "code": "base",
+        "name": "Main Website",
+        "default_group_id": 1
+      },
+      {
+        "id": 0,
+        "code": "admin",
+        "name": "Admin",
+        "default_group_id": 0
+      }
+    ],
+    "store_views": [
+      {
+        "id": 1,
+        "code": "english",
+        "name": "English",
+        "website_id": 1,
+        "store_group_id": 1,
+        "is_active": 1
+      },
+      {
+        "id": 0,
+        "code": "admin",
+        "name": "Admin",
+        "website_id": 0,
+        "store_group_id": 0,
+        "is_active": 1
+      }
+    ],
+    "store_configs": [
+      {
+        "id": 1,
+        "code": "english",
+        "website_id": 1,
+        "locale": "en_US",
+        "base_currency_code": "USD",
+        "default_display_currency_code": "USD",
+        "timezone": "America/Los_Angeles",
+        "weight_unit": "lbs",
+        "base_url": "https://www.bdgyoo.com/",
+        "base_link_url": "https://www.bdgyoo.com/",
+        "base_static_url": "https://minio.k8s.bdgyoo.com/bdgy-media/static/",
+        "base_media_url": "https://minio.k8s.bdgyoo.com/bdgy-media/media/",
+        "secure_base_url": "https://www.bdgyoo.com/",
+        "secure_base_link_url": "https://www.bdgyoo.com/",
+        "secure_base_static_url": "https://minio.k8s.bdgyoo.com/bdgy-media/static/",
+        "secure_base_media_url": "https://minio.k8s.bdgyoo.com/bdgy-media/media/"
+      }
+    ]
+  },
+  "categories": {
+    "total_count": 72,
+    "max_depth": 4,
+    "root_category": {
+      "id": 2,
+      "name": "Tattoo"
+    },
+    "top_level": [
+      {
+        "id": 51,
+        "name": "Tattoo Machines",
+        "is_active": true,
+        "product_count": 40,
+        "children": [
+          {
+            "id": 133,
+            "name": "Wireless Tattoo Machines",
+            "is_active": true,
+            "product_count": 33
+          },
+          {
+            "id": 134,
+            "name": "Rotary Tattoo Machines",
+            "is_active": true,
+            "product_count": 7
+          }
+        ]
+      },
+      {
+        "id": 118,
+        "name": "Tattoo Needles",
+        "is_active": true,
+        "product_count": 8,
+        "children": []
+      },
+      {
+        "id": 55,
+        "name": "Tattoo Power Supplies",
+        "is_active": true,
+        "product_count": 22,
+        "children": [
+          {
+            "id": 136,
+            "name": "Wireless Tattoo Battery",
+            "is_active": true,
+            "product_count": 15
+          },
+          {
+            "id": 78,
+            "name": "Tattoo Power Supply",
+            "is_active": true,
+            "product_count": 7
+          },
+          {
+            "id": 79,
+            "name": "Tattoo Foot Pedal",
+            "is_active": false,
+            "product_count": 17
+          }
+        ]
+      },
+      {
+        "id": 142,
+        "name": "Tattoo Kits",
+        "is_active": true,
+        "product_count": 15,
+        "children": [
+          {
+            "id": 194,
+            "name": "Wireless Machine Kits",
+            "is_active": true,
+            "product_count": 14
+          },
+          {
+            "id": 197,
+            "name": "Complete Tattoo Kits",
+            "is_active": true,
+            "product_count": 5
+          },
+          {
+            "id": 200,
+            "name": "Xnet Kits",
+            "is_active": true,
+            "product_count": 3
+          },
+          {
+            "id": 203,
+            "name": "Machine Kit Parts",
+            "is_active": true,
+            "product_count": 15
+          }
+        ]
+      },
+      {
+        "id": 54,
+        "name": "Tattoo Grips",
+        "is_active": true,
+        "product_count": 4,
+        "children": [
+          {
+            "id": 70,
+            "name": "Cartridge Grips",
+            "is_active": false,
+            "product_count": 1
+          },
+          {
+            "id": 137,
+            "name": "Metal Tattoo Grip",
+            "is_active": true,
+            "product_count": 1
+          },
+          {
+            "id": 138,
+            "name": "Stainless Steel Tattoo Grip",
+            "is_active": false,
+            "product_count": 0
+          },
+          {
+            "id": 86,
+            "name": "Sterilizable Steel Grip",
+            "is_active": false,
+            "product_count": 1
+          },
+          {
+            "id": 135,
+            "name": "Disposable Tattoo Grip",
+            "is_active": true,
+            "product_count": 3
+          }
+        ]
+      },
+      {
+        "id": 180,
+        "name": "Tattoo Medical",
+        "is_active": true,
+        "product_count": 6,
+        "children": [
+          {
+            "id": 218,
+            "name": "Bibs & Sheets",
+            "is_active": true,
+            "product_count": 2
+          },
+          {
+            "id": 221,
+            "name": "Wraps & Bandages",
+            "is_active": true,
+            "product_count": 1
+          },
+          {
+            "id": 224,
+            "name": "Barrier Film",
+            "is_active": true,
+            "product_count": 1
+          },
+          {
+            "id": 227,
+            "name": "Wipes & Disposal",
+            "is_active": true,
+            "product_count": 2
+          }
+        ]
+      },
+      {
+        "id": 58,
+        "name": "Tattoo Accessories",
+        "is_active": true,
+        "product_count": 11,
+        "children": [
+          {
+            "id": 206,
+            "name": "Machine Parts",
+            "is_active": true,
+            "product_count": 1
+          },
+          {
+            "id": 209,
+            "name": "Cables & Adapters",
+            "is_active": true,
+            "product_count": 2
+          },
+          {
+            "id": 212,
+            "name": "Machine Cases",
+            "is_active": true,
+            "product_count": 2
+          },
+          {
+            "id": 215,
+            "name": "Studio Accessories",
+            "is_active": true,
+            "product_count": 6
+          }
+        ]
+      }
+    ]
+  },
+  "products": {
+    "total_count": 1049,
+    "type_counts": {
+      "simple": 966,
+      "configurable": 81,
+      "bundle": 2,
+      "grouped": 0,
+      "virtual": 0,
+      "downloadable": 0
+    },
+    "status": {
+      "enabled": 1009,
+      "disabled": 40
+    }
+  },
+  "attribute_sets": [
+    {
+      "attribute_set_id": 30,
+      "attribute_set_name": "Accessories",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 22,
+      "attribute_set_name": "Bag",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 17,
+      "attribute_set_name": "Bottom",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 12,
+      "attribute_set_name": "Cartridge Grip",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 15,
+      "attribute_set_name": "Cartridge Needles",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 13,
+      "attribute_set_name": "Coil Machine",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 9,
+      "attribute_set_name": "Configurable",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 4,
+      "attribute_set_name": "Default",
+      "sort_order": 1,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 21,
+      "attribute_set_name": "Downloadable",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 18,
+      "attribute_set_name": "Gear",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 29,
+      "attribute_set_name": "Medical",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 10,
+      "attribute_set_name": "Pen",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 14,
+      "attribute_set_name": "Power Supply",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 11,
+      "attribute_set_name": "Rotary Machine",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 19,
+      "attribute_set_name": "Sprite Stasis Ball",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 20,
+      "attribute_set_name": "Sprite Yoga Strap",
+      "sort_order": 0,
+      "entity_type_id": 4
+    },
+    {
+      "attribute_set_id": 16,
+      "attribute_set_name": "Top",
+      "sort_order": 0,
+      "entity_type_id": 4
+    }
+  ],
+  "sample_products": [
+    {
+      "id": 560,
+      "sku": "WPS-HELLO3",
+      "name": "HELLO Wireless Charging Power Supply 3",
+      "price": 0,
+      "type": "configurable",
+      "media_count": 9,
+      "options": [
+        {
+          "id": 97,
+          "attribute_id": "93",
+          "label": "Color",
+          "position": 1,
+          "values": [
+            {
+              "value_index": 5
+            },
+            {
+              "value_index": 6
+            }
+          ],
+          "product_id": 560
+        },
+        {
+          "id": 98,
+          "attribute_id": "201",
+          "label": "Clip Cord Type",
+          "position": 0,
+          "values": [
+            {
+              "value_index": 72
+            },
+            {
+              "value_index": 76
+            }
+          ],
+          "product_id": 560
+        }
+      ],
+      "children_count": 4
+    },
+    {
+      "id": 651,
+      "sku": "AB-JL",
+      "name": "Ambition Storm Wand Wireless Tattoo Machine Pen",
+      "price": 0,
+      "type": "configurable",
+      "media_count": 11,
+      "options": [
+        {
+          "id": 184,
+          "attribute_id": "246",
+          "label": "Machine Size",
+          "position": 1,
+          "values": [
+            {
+              "value_index": 5566
+            },
+            {
+              "value_index": 5671
+            }
+          ],
+          "product_id": 651
+        },
+        {
+          "id": 185,
+          "attribute_id": "251",
+          "label": "Colors",
+          "position": 0,
+          "values": [
+            {
+              "value_index": 5674
+            },
+            {
+              "value_index": 5675
+            },
+            {
+              "value_index": 5676
+            }
+          ],
+          "product_id": 651
+        }
+      ],
+      "children_count": 6
+    },
+    {
+      "id": 660,
+      "sku": "AB-JPZ",
+      "name": "Ambition Revolution Tattoo Cartridge Needles",
+      "price": 0,
+      "type": "configurable",
+      "media_count": 11,
+      "options": [
+        {
+          "id": 288,
+          "attribute_id": "197",
+          "label": "Size",
+          "position": 2,
+          "values": [
+            {
+              "value_index": 5976
+            },
+            {
+              "value_index": 5977
+            },
+            {
+              "value_index": 5978
+            },
+            {
+              "value_index": 5979
+            },
+            {
+              "value_index": 5980
+            },
+            {
+              "value_index": 5981
+            },
+            {
+              "value_index": 5982
+            },
+            {
+              "value_index": 5983
+            },
+            {
+              "value_index": 5984
+            },
+            {
+              "value_index": 5985
+            },
+            {
+              "value_index": 6027
+            },
+            {
+              "value_index": 6030
+            },
+            {
+              "value_index": 5987
+            }
+          ],
+          "product_id": 660
+        },
+        {
+          "id": 282,
+          "attribute_id": "252",
+          "label": "Style",
+          "position": 0,
+          "values": [
+            {
+              "value_index": 6006
+            },
+            {
+              "value_index": 6018
+            },
+            {
+              "value_index": 6021
+            },
+            {
+              "value_index": 6024
+            },
+            {
+              "value_index": 6015
+            }
+          ],
+          "product_id": 660
+        },
+        {
+          "id": 285,
+          "attribute_id": "331",
+          "label": "Gauge",
+          "position": 1,
+          "values": [
+            {
+              "value_index": 5972
+            },
+            {
+              "value_index": 5973
+            },
+            {
+              "value_index": 5974
+            }
+          ],
+          "product_id": 660
+        }
+      ],
+      "children_count": 72
+    },
+    {
+      "id": 182,
+      "sku": "9673-9676",
+      "name": "LCD Dual Power Supply",
+      "price": 16,
+      "type": "simple",
+      "media_count": 6,
+      "custom_attributes_count": 34
+    },
+    {
+      "id": 561,
+      "sku": "WPS-HELLO3-DC-Black",
+      "name": "HELLO Wireless Charging Power Supply 3-DC-Black",
+      "price": 48,
+      "type": "simple",
+      "media_count": 3,
+      "custom_attributes_count": 26
+    }
+  ]
+}

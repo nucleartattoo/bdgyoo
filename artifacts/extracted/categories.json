@@ -1,0 +1,735 @@
+{
+  "id": 2,
+  "parent_id": 1,
+  "name": "Tattoo",
+  "is_active": true,
+  "position": 1,
+  "level": 1,
+  "product_count": 104,
+  "children_data": [
+    {
+      "id": 51,
+      "parent_id": 2,
+      "name": "Tattoo Machines",
+      "is_active": true,
+      "position": 4,
+      "level": 2,
+      "product_count": 40,
+      "children_data": [
+        {
+          "id": 133,
+          "parent_id": 51,
+          "name": "Wireless Tattoo Machines",
+          "is_active": true,
+          "position": 1,
+          "level": 3,
+          "product_count": 33,
+          "children_data": []
+        },
+        {
+          "id": 134,
+          "parent_id": 51,
+          "name": "Rotary Tattoo Machines",
+          "is_active": true,
+          "position": 2,
+          "level": 3,
+          "product_count": 7,
+          "children_data": [
+            {
+              "id": 82,
+              "parent_id": 134,
+              "name": "Japanese Tattoo Pen",
+              "is_active": false,
+              "position": 1,
+              "level": 4,
+              "product_count": 0,
+              "children_data": [
+                {
+                  "id": 94,
+                  "parent_id": 82,
+                  "name": "Sun",
+                  "is_active": false,
+                  "position": 1,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 95,
+                  "parent_id": 82,
+                  "name": "Hot Hatch",
+                  "is_active": false,
+                  "position": 2,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 96,
+                  "parent_id": 82,
+                  "name": "Camouflage Ryuga",
+                  "is_active": false,
+                  "position": 3,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 97,
+                  "parent_id": 82,
+                  "name": "Easterly",
+                  "is_active": false,
+                  "position": 4,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 59,
+                  "parent_id": 82,
+                  "name": "Phoenix Pen",
+                  "is_active": false,
+                  "position": 5,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 98,
+                  "parent_id": 82,
+                  "name": "Hawk Power",
+                  "is_active": false,
+                  "position": 6,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 99,
+                  "parent_id": 82,
+                  "name": "Camouflage Hawk Power",
+                  "is_active": false,
+                  "position": 7,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 122,
+                  "parent_id": 82,
+                  "name": "Flame",
+                  "is_active": false,
+                  "position": 8,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 128,
+                  "parent_id": 82,
+                  "name": "Lei Ting",
+                  "is_active": false,
+                  "position": 9,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                }
+              ]
+            },
+            {
+              "id": 83,
+              "parent_id": 134,
+              "name": "Domestic Tattoo Pen",
+              "is_active": false,
+              "position": 2,
+              "level": 4,
+              "product_count": 0,
+              "children_data": [
+                {
+                  "id": 100,
+                  "parent_id": 83,
+                  "name": "Kong Kim",
+                  "is_active": false,
+                  "position": 1,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 101,
+                  "parent_id": 83,
+                  "name": "Slip the Dragon",
+                  "is_active": false,
+                  "position": 2,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 102,
+                  "parent_id": 83,
+                  "name": "The Torpedo",
+                  "is_active": false,
+                  "position": 3,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 60,
+                  "parent_id": 83,
+                  "name": "T2 Pen",
+                  "is_active": false,
+                  "position": 4,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 62,
+                  "parent_id": 83,
+                  "name": "Ryuga",
+                  "is_active": false,
+                  "position": 5,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 61,
+                  "parent_id": 83,
+                  "name": "Noble Pen",
+                  "is_active": false,
+                  "position": 6,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 123,
+                  "parent_id": 83,
+                  "name": "KWL 2",
+                  "is_active": false,
+                  "position": 7,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 126,
+                  "parent_id": 83,
+                  "name": "Bojue 2",
+                  "is_active": false,
+                  "position": 8,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 140,
+                  "parent_id": 83,
+                  "name": "Dragon Tooth",
+                  "is_active": false,
+                  "position": 9,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 141,
+                  "parent_id": 83,
+                  "name": "Hawk  Pen",
+                  "is_active": false,
+                  "position": 10,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                }
+              ]
+            },
+            {
+              "id": 85,
+              "parent_id": 134,
+              "name": "Short Tattoo Pen",
+              "is_active": false,
+              "position": 3,
+              "level": 4,
+              "product_count": 0,
+              "children_data": [
+                {
+                  "id": 107,
+                  "parent_id": 85,
+                  "name": "Spike",
+                  "is_active": false,
+                  "position": 1,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 108,
+                  "parent_id": 85,
+                  "name": "The Hunter",
+                  "is_active": false,
+                  "position": 2,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 121,
+                  "parent_id": 85,
+                  "name": "KWL 2",
+                  "is_active": false,
+                  "position": 3,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                },
+                {
+                  "id": 127,
+                  "parent_id": 85,
+                  "name": "Ambition",
+                  "is_active": false,
+                  "position": 4,
+                  "level": 5,
+                  "product_count": 0,
+                  "children_data": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 118,
+      "parent_id": 2,
+      "name": "Tattoo Needles",
+      "is_active": true,
+      "position": 5,
+      "level": 2,
+      "product_count": 8,
+      "children_data": []
+    },
+    {
+      "id": 55,
+      "parent_id": 2,
+      "name": "Tattoo Power Supplies",
+      "is_active": true,
+      "position": 6,
+      "level": 2,
+      "product_count": 22,
+      "children_data": [
+        {
+          "id": 136,
+          "parent_id": 55,
+          "name": "Wireless Tattoo Battery",
+          "is_active": true,
+          "position": 1,
+          "level": 3,
+          "product_count": 15,
+          "children_data": [
+            {
+              "id": 132,
+              "parent_id": 136,
+              "name": "Tattoo Battery Pack",
+              "is_active": false,
+              "position": 1,
+              "level": 4,
+              "product_count": 7,
+              "children_data": []
+            },
+            {
+              "id": 77,
+              "parent_id": 136,
+              "name": "LCD Power Supply",
+              "is_active": false,
+              "position": 2,
+              "level": 4,
+              "product_count": 5,
+              "children_data": []
+            }
+          ]
+        },
+        {
+          "id": 78,
+          "parent_id": 55,
+          "name": "Tattoo Power Supply",
+          "is_active": true,
+          "position": 2,
+          "level": 3,
+          "product_count": 7,
+          "children_data": []
+        },
+        {
+          "id": 79,
+          "parent_id": 55,
+          "name": "Tattoo Foot Pedal",
+          "is_active": false,
+          "position": 3,
+          "level": 3,
+          "product_count": 17,
+          "children_data": []
+        }
+      ]
+    },
+    {
+      "id": 142,
+      "parent_id": 2,
+      "name": "Tattoo Kits",
+      "is_active": true,
+      "position": 7,
+      "level": 2,
+      "product_count": 15,
+      "children_data": [
+        {
+          "id": 194,
+          "parent_id": 142,
+          "name": "Wireless Machine Kits",
+          "is_active": true,
+          "position": 10,
+          "level": 3,
+          "product_count": 14,
+          "children_data": []
+        },
+        {
+          "id": 197,
+          "parent_id": 142,
+          "name": "Complete Tattoo Kits",
+          "is_active": true,
+          "position": 20,
+          "level": 3,
+          "product_count": 5,
+          "children_data": []
+        },
+        {
+          "id": 200,
+          "parent_id": 142,
+          "name": "Xnet Kits",
+          "is_active": true,
+          "position": 30,
+          "level": 3,
+          "product_count": 3,
+          "children_data": []
+        },
+        {
+          "id": 203,
+          "parent_id": 142,
+          "name": "Machine Kit Parts",
+          "is_active": true,
+          "position": 40,
+          "level": 3,
+          "product_count": 15,
+          "children_data": []
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "parent_id": 2,
+      "name": "Tattoo Grips",
+      "is_active": true,
+      "position": 8,
+      "level": 2,
+      "product_count": 4,
+      "children_data": [
+        {
+          "id": 70,
+          "parent_id": 54,
+          "name": "Cartridge Grips",
+          "is_active": false,
+          "position": 1,
+          "level": 3,
+          "product_count": 1,
+          "children_data": [
+            {
+              "id": 71,
+              "parent_id": 70,
+              "name": "Shark Premium Adjustable Cartridge Grip",
+              "is_active": false,
+              "position": 1,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            },
+            {
+              "id": 72,
+              "parent_id": 70,
+              "name": "Water Premium Adjustable Cartridge Grip",
+              "is_active": false,
+              "position": 2,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            },
+            {
+              "id": 73,
+              "parent_id": 70,
+              "name": "Cucurbit Premium Adjustable Cartridge Grip",
+              "is_active": false,
+              "position": 3,
+              "level": 4,
+              "product_count": 1,
+              "children_data": []
+            },
+            {
+              "id": 74,
+              "parent_id": 70,
+              "name": "Jack Premium Adjustable Cartridge Grip",
+              "is_active": false,
+              "position": 4,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            }
+          ]
+        },
+        {
+          "id": 137,
+          "parent_id": 54,
+          "name": "Metal Tattoo Grip",
+          "is_active": true,
+          "position": 2,
+          "level": 3,
+          "product_count": 1,
+          "children_data": []
+        },
+        {
+          "id": 138,
+          "parent_id": 54,
+          "name": "Stainless Steel Tattoo Grip",
+          "is_active": false,
+          "position": 3,
+          "level": 3,
+          "product_count": 0,
+          "children_data": [
+            {
+              "id": 129,
+              "parent_id": 138,
+              "name": "Ambition 316 Stainless Steel",
+              "is_active": false,
+              "position": 1,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            },
+            {
+              "id": 130,
+              "parent_id": 138,
+              "name": "Cucurbit 316 Stainless Steel ",
+              "is_active": false,
+              "position": 2,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            },
+            {
+              "id": 131,
+              "parent_id": 138,
+              "name": "Ambition Special",
+              "is_active": false,
+              "position": 3,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            },
+            {
+              "id": 115,
+              "parent_id": 138,
+              "name": "Ambition Adjustable Grip",
+              "is_active": false,
+              "position": 4,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            }
+          ]
+        },
+        {
+          "id": 86,
+          "parent_id": 54,
+          "name": "Sterilizable Steel Grip",
+          "is_active": false,
+          "position": 4,
+          "level": 3,
+          "product_count": 1,
+          "children_data": [
+            {
+              "id": 110,
+              "parent_id": 86,
+              "name": "Gourd",
+              "is_active": false,
+              "position": 2,
+              "level": 4,
+              "product_count": 1,
+              "children_data": []
+            },
+            {
+              "id": 139,
+              "parent_id": 86,
+              "name": "Cheyenne",
+              "is_active": false,
+              "position": 3,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            },
+            {
+              "id": 111,
+              "parent_id": 86,
+              "name": "Drip",
+              "is_active": false,
+              "position": 4,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            },
+            {
+              "id": 113,
+              "parent_id": 86,
+              "name": "The Shark (32mm)",
+              "is_active": false,
+              "position": 5,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            },
+            {
+              "id": 114,
+              "parent_id": 86,
+              "name": "Cheyenne",
+              "is_active": false,
+              "position": 7,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            },
+            {
+              "id": 116,
+              "parent_id": 86,
+              "name": "Jack",
+              "is_active": false,
+              "position": 8,
+              "level": 4,
+              "product_count": 0,
+              "children_data": []
+            }
+          ]
+        },
+        {
+          "id": 135,
+          "parent_id": 54,
+          "name": "Disposable Tattoo Grip",
+          "is_active": true,
+          "position": 5,
+          "level": 3,
+          "product_count": 3,
+          "children_data": []
+        }
+      ]
+    },
+    {
+      "id": 180,
+      "parent_id": 2,
+      "name": "Tattoo Medical",
+      "is_active": true,
+      "position": 9,
+      "level": 2,
+      "product_count": 6,
+      "children_data": [
+        {
+          "id": 218,
+          "parent_id": 180,
+          "name": "Bibs & Sheets",
+          "is_active": true,
+          "position": 10,
+          "level": 3,
+          "product_count": 2,
+          "children_data": []
+        },
+        {
+          "id": 221,
+          "parent_id": 180,
+          "name": "Wraps & Bandages",
+          "is_active": true,
+          "position": 20,
+          "level": 3,
+          "product_count": 1,
+          "children_data": []
+        },
+        {
+          "id": 224,
+          "parent_id": 180,
+          "name": "Barrier Film",
+          "is_active": true,
+          "position": 30,
+          "level": 3,
+          "product_count": 1,
+          "children_data": []
+        },
+        {
+          "id": 227,
+          "parent_id": 180,
+          "name": "Wipes & Disposal",
+          "is_active": true,
+          "position": 40,
+          "level": 3,
+          "product_count": 2,
+          "children_data": []
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "parent_id": 2,
+      "name": "Tattoo Accessories",
+      "is_active": true,
+      "position": 12,
+      "level": 2,
+      "product_count": 11,
+      "children_data": [
+        {
+          "id": 206,
+          "parent_id": 58,
+          "name": "Machine Parts",
+          "is_active": true,
+          "position": 10,
+          "level": 3,
+          "product_count": 1,
+          "children_data": []
+        },
+        {
+          "id": 209,
+          "parent_id": 58,
+          "name": "Cables & Adapters",
+          "is_active": true,
+          "position": 20,
+          "level": 3,
+          "product_count": 2,
+          "children_data": []
+        },
+        {
+          "id": 212,
+          "parent_id": 58,
+          "name": "Machine Cases",
+          "is_active": true,
+          "position": 30,
+          "level": 3,
+          "product_count": 2,
+          "children_data": []
+        },
+        {
+          "id": 215,
+          "parent_id": 58,
+          "name": "Studio Accessories",
+          "is_active": true,
+          "position": 40,
+          "level": 3,
+          "product_count": 6,
+          "children_data": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.output/
+.tanstack/
+routeTree.gen.ts
+.env
+.env.local
+.npmrc
+*.log
+.DS_Store
+__pycache__/
+*.pyc
+.cc-writes/
+**/.cc-writes/
+
+
