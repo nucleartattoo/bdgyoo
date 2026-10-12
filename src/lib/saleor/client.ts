@@ -8,7 +8,7 @@ const STORAGE_ENDPOINT_KEY = 'bdgy_saleor_endpoint_override'
 const STORAGE_CHANNEL_KEY = 'bdgy_saleor_channel_override'
 
 export function getSaleorConfig(): SaleorConfig {
-  let endpoint = 'https://learn.saleor.cloud/graphql/'
+  let endpoint = 'http://localhost:8003/graphql/'
   let channel = 'default-channel'
 
   if (typeof window !== 'undefined') {

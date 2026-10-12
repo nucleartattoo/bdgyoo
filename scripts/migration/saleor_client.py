@@ -22,6 +22,8 @@ class SaleorClient:
         headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",
+            "Host": "api.saleor.kubernetes.nucleartattoosupply.com",
+            "X-Forwarded-Proto": "https",
         }
         if self.token:
             headers["Authorization"] = f"Bearer {self.token}"
@@ -105,7 +107,7 @@ class SaleorClient:
             "inputType": input_type,
         }
         if values:
-            input_data["values"] = [{"name": str(v), "value": str(v)} for v in values]
+            input_data["values"] = [{"name": str(v)} for v in values]
 
         res = self.execute(mutation, {"input": input_data})
         attr_data = res.get("data", {}).get("attributeCreate", {})
@@ -230,6 +232,7 @@ class SaleorClient:
                 "channelId": channel_id,
                 "isPublished": is_published,
                 "visibleInListings": is_published,
+                "isAvailableForPurchase": is_published,
             }]
         }
         res = self.execute(mutation, {"id": product_id, "input": input_data})
@@ -240,7 +243,7 @@ class SaleorClient:
 
     def create_product_media(self, product_id, image_url, alt=""):
         mutation = """
-        mutation CreateProductMedia($productId: ID!, $image: Upload, $mediaUrl: String, $alt: String) {
+        mutation CreateProductMedia($productId: ID!, $mediaUrl: String, $alt: String) {
           productMediaCreate(input: {product: $productId, mediaUrl: $mediaUrl, alt: $alt}) {
             media {
               id

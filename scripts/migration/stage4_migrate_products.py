@@ -36,6 +36,16 @@ def migrate_products(limit=None, dry_run=False):
         products = products[:limit]
     print(f"Processing {len(products)} products (out of {total_available} total, limit={limit})...\n")
 
+    # Resolve global Channel ID
+    channel_id = "Q2hhbm5lbDox"
+    if not dry_run:
+        try:
+            ch_res = client.execute('query { channel(slug: "%s") { id } }' % config["channel"])
+            channel_id = ch_res.get("data", {}).get("channel", {}).get("id") or channel_id
+        except Exception as e:
+            print(f"Notice resolving channel id: {e}")
+    print(f"Target Channel ID: {channel_id}")
+
     # Map of child simple product IDs that belong to configurable products
     child_product_ids = set()
     for p in products:
@@ -110,9 +120,10 @@ def migrate_products(limit=None, dry_run=False):
             state.set_product(p_id, s_prod_id)
 
             # 2. Publish to Channel
-            client.update_product_channel_listing(s_prod_id, config["channel"], is_published=True)
+            client.update_product_channel_listing(s_prod_id, channel_id, is_published=True)
 
             # 3. Handle Variants
+            warehouse_id = config.get("warehouse_id")
             if type_id == "configurable":
                 children = p.get("_configurable_children", [])
                 variants_input = []
@@ -120,28 +131,40 @@ def migrate_products(limit=None, dry_run=False):
                     c_sku = child.get("sku")
                     c_name = child.get("name", c_sku)
                     c_price = float(child.get("price") or price)
-                    variants_input.append({
+                    v_item = {
                         "sku": c_sku,
                         "name": c_name,
                         "attributes": [],
                         "channelListings": [{
-                            "channelId": config["channel"],
+                            "channelId": channel_id,
                             "price": c_price
                         }]
-                    })
+                    }
+                    if warehouse_id:
+                        v_item["stocks"] = [{
+                            "warehouse": warehouse_id,
+                            "quantity": 100
+                        }]
+                    variants_input.append(v_item)
                 if variants_input:
                     client.create_variant_bulk(s_prod_id, variants_input)
             else:
                 # Standalone simple product
-                client.create_variant_bulk(s_prod_id, [{
+                simple_v = {
                     "sku": sku,
                     "name": name,
                     "attributes": [],
                     "channelListings": [{
-                        "channelId": config["channel"],
+                        "channelId": channel_id,
                         "price": price
                     }]
-                }])
+                }
+                if warehouse_id:
+                    simple_v["stocks"] = [{
+                        "warehouse": warehouse_id,
+                        "quantity": 100
+                    }]
+                client.create_variant_bulk(s_prod_id, [simple_v])
 
             # 3. Handle Media Images
             media_entries = p.get("media_gallery_entries", [])
