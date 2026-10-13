@@ -15,9 +15,14 @@ import {
 import { useEffect, useState } from 'react'
 import {
   type ShopInfo,
+  completeSaleorCheckout,
   createSaleorCheckout,
+  createSaleorTransaction,
   fetchSaleorProducts,
   fetchSaleorShopInfo,
+  updateSaleorBillingAddress,
+  updateSaleorDeliveryMethod,
+  updateSaleorShippingAddress,
 } from '~/lib/saleor/api'
 import { getSaleorConfig, setSaleorConfig } from '~/lib/saleor/client'
 import type { Product } from '~/lib/saleor/types'
@@ -109,6 +114,8 @@ function SaleorIntegrationPage() {
     }
   }
 
+  const [checkoutStep, setCheckoutStep] = useState<string>('')
+
   const handleTestCheckout = async () => {
     if (products.length === 0 || !products[0]?.variants?.[0]) {
       alert('Please load products first to acquire a real Saleor variant ID.')
@@ -118,25 +125,156 @@ function SaleorIntegrationPage() {
     setCheckoutTesting(true)
     setCheckoutResult(null)
 
-    const firstProduct = products[0]
-    const variantId = firstProduct.variants?.[0]?.id
-    if (!variantId) {
+    // Find first product with purchasable variant
+    let targetProduct = products[0]
+    let targetVariant = products[0].variants?.[0]
+    for (const p of products) {
+      if (p.variants && p.variants.length > 0) {
+        targetProduct = p
+        targetVariant = p.variants[0]
+        break
+      }
+    }
+
+    if (!targetVariant?.id) {
       alert('Selected product has no purchasable variants.')
       setCheckoutTesting(false)
       return
     }
 
-    const res = await createSaleorCheckout({
-      email: 'demo-buyer@bdgyoo.com',
-      lines: [{ variantId, quantity: 1 }],
-    })
+    try {
+      // 1. Create Checkout
+      setCheckoutStep('1/5 Creating checkout session...')
+      const createRes = await createSaleorCheckout({
+        email: 'customer@bdgyoo.com',
+        lines: [{ variantId: targetVariant.id, quantity: 1 }],
+      })
 
-    setCheckoutTesting(false)
-    setCheckoutResult({
-      productName: firstProduct.name,
-      variantId,
-      response: res,
-    })
+      if (!createRes.success || !createRes.checkout?.id) {
+        setCheckoutTesting(false)
+        setCheckoutResult({
+          productName: targetProduct.name,
+          variantId: targetVariant.id,
+          step: 'checkoutCreate',
+          error: createRes.errors?.[0]?.message || 'Failed to create checkout',
+        })
+        return
+      }
+
+      const checkoutId = createRes.checkout.id
+
+      // 2. Set Shipping Address
+      setCheckoutStep('2/5 Setting shipping address...')
+      const shipRes = await updateSaleorShippingAddress(checkoutId, {
+        firstName: 'Austin',
+        lastName: 'Artist',
+        streetAddress1: '742 Evergreen Terrace',
+        city: 'Los Angeles',
+        countryArea: 'CA',
+        postalCode: '90001',
+        country: 'US',
+        phone: '+12135550199',
+      })
+
+      if (!shipRes.success) {
+        setCheckoutTesting(false)
+        setCheckoutResult({
+          productName: targetProduct.name,
+          variantId: targetVariant.id,
+          step: 'checkoutShippingAddressUpdate',
+          error: shipRes.errors?.[0]?.message || 'Failed to update shipping address',
+        })
+        return
+      }
+
+      // 3. Set Billing Address
+      setCheckoutStep('3/5 Setting billing address...')
+      const billRes = await updateSaleorBillingAddress(checkoutId, {
+        firstName: 'Austin',
+        lastName: 'Artist',
+        streetAddress1: '742 Evergreen Terrace',
+        city: 'Los Angeles',
+        countryArea: 'CA',
+        postalCode: '90001',
+        country: 'US',
+        phone: '+12135550199',
+      })
+
+      if (!billRes.success) {
+        setCheckoutTesting(false)
+        setCheckoutResult({
+          productName: targetProduct.name,
+          variantId: targetVariant.id,
+          step: 'checkoutBillingAddressUpdate',
+          error: billRes.errors?.[0]?.message || 'Failed to update billing address',
+        })
+        return
+      }
+
+      // 4. Select Delivery Method
+      setCheckoutStep('4/5 Binding shipping method & charging transaction...')
+      const deliveryMethod = shipRes.availableShippingMethods?.[0]
+      let grandTotal = createRes.checkout.totalPrice?.gross.amount || 20.0
+      const currency = createRes.checkout.totalPrice?.gross.currency || 'USD'
+
+      if (deliveryMethod?.id) {
+        const delivRes = await updateSaleorDeliveryMethod(checkoutId, deliveryMethod.id)
+        if (delivRes.success && delivRes.totalPrice?.gross.amount) {
+          grandTotal = delivRes.totalPrice.gross.amount
+        }
+      }
+
+      // Record transaction
+      const txRes = await createSaleorTransaction(checkoutId, {
+        amount: grandTotal,
+        currency,
+        name: 'Storefront Credit Card',
+      })
+
+      if (!txRes.success) {
+        setCheckoutTesting(false)
+        setCheckoutResult({
+          productName: targetProduct.name,
+          variantId: targetVariant.id,
+          step: 'transactionCreate',
+          error: txRes.errors?.[0]?.message || 'Failed to authorize payment transaction',
+        })
+        return
+      }
+
+      // 5. Complete Checkout
+      setCheckoutStep('5/5 Finalizing checkout into official order...')
+      const completeRes = await completeSaleorCheckout(checkoutId)
+
+      setCheckoutTesting(false)
+      if (completeRes.success && completeRes.order) {
+        setCheckoutResult({
+          success: true,
+          productName: targetProduct.name,
+          variantId: targetVariant.id,
+          checkoutId,
+          order: completeRes.order,
+          shippingMethod: deliveryMethod?.name || 'Standard Ground',
+          grandTotal,
+          currency,
+        })
+      } else {
+        setCheckoutResult({
+          productName: targetProduct.name,
+          variantId: targetVariant.id,
+          step: 'checkoutComplete',
+          error: completeRes.errors?.[0]?.message || 'Failed to complete order in Saleor',
+        })
+      }
+    } catch (err: any) {
+      setCheckoutTesting(false)
+      setCheckoutResult({
+        productName: targetProduct.name,
+        variantId: targetVariant.id,
+        step: 'exception',
+        error: err.message,
+      })
+    }
   }
 
   return (
@@ -330,36 +468,38 @@ function SaleorIntegrationPage() {
               className="w-full flex items-center justify-center gap-2 rounded-lg bg-emerald-500 py-3 text-xs font-bold text-black transition hover:bg-emerald-400 disabled:opacity-50"
             >
               <Play className={`h-4 w-4 ${checkoutTesting ? 'animate-spin' : ''}`} />
-              {checkoutTesting
-                ? 'Executing GraphQL Mutation...'
-                : 'Execute checkoutCreate Mutation'}
+              {checkoutTesting ? (checkoutStep || 'Processing...') : 'Run Full E2E Checkout Flow'}
             </button>
 
             {checkoutResult && (
-              <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-3 space-y-2 text-[11px] font-mono overflow-hidden">
+              <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-3.5 space-y-2 text-[11px] font-mono overflow-hidden">
                 <div className="text-zinc-400">
                   Product: <span className="text-white">{checkoutResult.productName}</span>
                 </div>
-                {checkoutResult.response.success ? (
-                  <div className="space-y-1 text-emerald-400">
-                    <p className="font-bold flex items-center gap-1">
-                      <CheckCircle2 className="h-3.5 w-3.5" /> Checkout Created!
+                {checkoutResult.success && checkoutResult.order ? (
+                  <div className="space-y-1.5 text-emerald-400">
+                    <p className="font-bold flex items-center gap-1.5 text-xs text-emerald-300">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Official Order #{checkoutResult.order.number} Created!
                     </p>
-                    <p className="text-zinc-400 break-all">
-                      ID:{' '}
-                      <span className="text-amber-400">{checkoutResult.response.checkout.id}</span>
-                    </p>
-                    <p className="text-zinc-400">
-                      Token:{' '}
-                      <span className="text-white">{checkoutResult.response.checkout.token}</span>
-                    </p>
+                    <div className="bg-zinc-950 p-2.5 rounded border border-emerald-500/30 text-[10px] space-y-1">
+                      <p className="text-zinc-300">
+                        Order ID: <span className="text-amber-400">{checkoutResult.order.id}</span>
+                      </p>
+                      <p className="text-zinc-300">
+                        Status: <span className="text-emerald-400 font-bold">{checkoutResult.order.status}</span>
+                      </p>
+                      <p className="text-zinc-300">
+                        Shipping: <span className="text-white">{checkoutResult.shippingMethod}</span>
+                      </p>
+                      <p className="text-zinc-300">
+                        Total Settled: <span className="text-emerald-400 font-bold">${checkoutResult.grandTotal} {checkoutResult.currency}</span>
+                      </p>
+                    </div>
                   </div>
                 ) : (
-                  <div className="text-rose-400">
-                    <p className="font-bold">Mutation Errors:</p>
-                    <pre className="text-[10px] overflow-x-auto text-rose-300">
-                      {JSON.stringify(checkoutResult.response.errors, null, 2)}
-                    </pre>
+                  <div className="text-rose-400 space-y-1">
+                    <p className="font-bold">Error at step: {checkoutResult.step}</p>
+                    <p className="text-[10px] text-rose-300">{checkoutResult.error}</p>
                   </div>
                 )}
               </div>

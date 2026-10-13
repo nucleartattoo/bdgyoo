@@ -407,14 +407,104 @@ export async function updateSaleorShippingAddress(
     countryArea?: string
     postalCode: string
     country: string
+    phone?: string
   },
 ): Promise<{
   success: boolean
-  errors?: Array<{ field?: string; message: string }>
+  availableShippingMethods?: Array<{
+    id: string
+    name: string
+    price: { amount: number; currency: string }
+  }>
+  errors?: Array<{ field?: string; message: string; code?: string }>
 }> {
   const mutation = `
-    mutation UpdateSaleorShippingAddress($checkoutId: ID!, $shippingAddress: AddressInput!) {
-      checkoutShippingAddressUpdate(checkoutId: $checkoutId, shippingAddress: $shippingAddress) {
+    mutation UpdateSaleorShippingAddress($id: ID!, $shippingAddress: AddressInput!) {
+      checkoutShippingAddressUpdate(id: $id, shippingAddress: $shippingAddress) {
+        checkout {
+          id
+          availableShippingMethods {
+            id
+            name
+            price {
+              amount
+              currency
+            }
+          }
+        }
+        errors {
+          field
+          message
+          code
+        }
+      }
+    }
+  `
+
+  const res = await saleorFetch<{
+    checkoutShippingAddressUpdate: {
+      checkout?: {
+        id: string
+        availableShippingMethods: Array<{
+          id: string
+          name: string
+          price: { amount: number; currency: string }
+        }>
+      }
+      errors: Array<{ field?: string; message: string; code?: string }>
+    }
+  }>({
+    query: mutation,
+    variables: {
+      id: checkoutId,
+      shippingAddress: {
+        firstName: address.firstName,
+        lastName: address.lastName,
+        streetAddress1: address.streetAddress1,
+        streetAddress2: address.streetAddress2 || '',
+        city: address.city,
+        countryArea: address.countryArea || '',
+        postalCode: address.postalCode,
+        country: address.country || 'US',
+        phone: address.phone || '',
+      },
+    },
+  })
+
+  const payload = res.data?.checkoutShippingAddressUpdate
+  if (payload?.errors && payload.errors.length > 0) {
+    return { success: false, errors: payload.errors }
+  }
+
+  return {
+    success: true,
+    availableShippingMethods: payload?.checkout?.availableShippingMethods || [],
+  }
+}
+
+/**
+ * Real Saleor Mutation: Update billing address on checkout
+ */
+export async function updateSaleorBillingAddress(
+  checkoutId: string,
+  address: {
+    firstName: string
+    lastName: string
+    streetAddress1: string
+    streetAddress2?: string
+    city: string
+    countryArea?: string
+    postalCode: string
+    country: string
+    phone?: string
+  },
+): Promise<{
+  success: boolean
+  errors?: Array<{ field?: string; message: string; code?: string }>
+}> {
+  const mutation = `
+    mutation UpdateSaleorBillingAddress($id: ID!, $billingAddress: AddressInput!) {
+      checkoutBillingAddressUpdate(id: $id, billingAddress: $billingAddress) {
         checkout {
           id
         }
@@ -428,15 +518,15 @@ export async function updateSaleorShippingAddress(
   `
 
   const res = await saleorFetch<{
-    checkoutShippingAddressUpdate: {
+    checkoutBillingAddressUpdate: {
       checkout?: { id: string }
-      errors: Array<{ field?: string; message: string }>
+      errors: Array<{ field?: string; message: string; code?: string }>
     }
   }>({
     query: mutation,
     variables: {
-      checkoutId,
-      shippingAddress: {
+      id: checkoutId,
+      billingAddress: {
         firstName: address.firstName,
         lastName: address.lastName,
         streetAddress1: address.streetAddress1,
@@ -445,16 +535,140 @@ export async function updateSaleorShippingAddress(
         countryArea: address.countryArea || '',
         postalCode: address.postalCode,
         country: address.country || 'US',
+        phone: address.phone || '',
       },
     },
   })
 
-  const payload = res.data?.checkoutShippingAddressUpdate
+  const payload = res.data?.checkoutBillingAddressUpdate
   if (payload?.errors && payload.errors.length > 0) {
     return { success: false, errors: payload.errors }
   }
 
   return { success: true }
+}
+
+/**
+ * Real Saleor Mutation: Select shipping/delivery method
+ */
+export async function updateSaleorDeliveryMethod(
+  checkoutId: string,
+  deliveryMethodId: string,
+): Promise<{
+  success: boolean
+  totalPrice?: { gross: { amount: number; currency: string } }
+  errors?: Array<{ field?: string; message: string; code?: string }>
+}> {
+  const mutation = `
+    mutation UpdateSaleorDeliveryMethod($id: ID!, $deliveryMethodId: ID!) {
+      checkoutDeliveryMethodUpdate(id: $id, deliveryMethodId: $deliveryMethodId) {
+        checkout {
+          id
+          totalPrice {
+            gross {
+              amount
+              currency
+            }
+          }
+        }
+        errors {
+          field
+          message
+          code
+        }
+      }
+    }
+  `
+
+  const res = await saleorFetch<{
+    checkoutDeliveryMethodUpdate: {
+      checkout?: {
+        id: string
+        totalPrice?: { gross: { amount: number; currency: string } }
+      }
+      errors: Array<{ field?: string; message: string; code?: string }>
+    }
+  }>({
+    query: mutation,
+    variables: {
+      id: checkoutId,
+      deliveryMethodId,
+    },
+  })
+
+  const payload = res.data?.checkoutDeliveryMethodUpdate
+  if (payload?.errors && payload.errors.length > 0) {
+    return { success: false, errors: payload.errors }
+  }
+
+  return {
+    success: true,
+    totalPrice: payload?.checkout?.totalPrice,
+  }
+}
+
+/**
+ * Real Saleor Mutation: Create payment transaction
+ */
+export async function createSaleorTransaction(
+  checkoutId: string,
+  input: {
+    amount: number
+    currency: string
+    name?: string
+    pspReference?: string
+  },
+): Promise<{
+  success: boolean
+  transactionId?: string
+  errors?: Array<{ field?: string; message: string; code?: string }>
+}> {
+  const mutation = `
+    mutation CreateSaleorTransaction($id: ID!, $transaction: TransactionCreateInput!) {
+      transactionCreate(id: $id, transaction: $transaction) {
+        transaction {
+          id
+          pspReference
+        }
+        errors {
+          field
+          message
+          code
+        }
+      }
+    }
+  `
+
+  const res = await saleorFetch<{
+    transactionCreate: {
+      transaction?: { id: string; pspReference: string }
+      errors: Array<{ field?: string; message: string; code?: string }>
+    }
+  }>({
+    query: mutation,
+    variables: {
+      id: checkoutId,
+      transaction: {
+        name: input.name || 'Storefront Credit Card',
+        message: 'Authorized & Charged',
+        pspReference: input.pspReference || `tx_${Date.now()}`,
+        amountCharged: {
+          amount: input.amount,
+          currency: input.currency || 'USD',
+        },
+      },
+    },
+  })
+
+  const payload = res.data?.transactionCreate
+  if (payload?.errors && payload.errors.length > 0) {
+    return { success: false, errors: payload.errors }
+  }
+
+  return {
+    success: true,
+    transactionId: payload?.transaction?.id,
+  }
 }
 
 /**
@@ -466,16 +680,28 @@ export async function completeSaleorCheckout(checkoutId: string): Promise<{
     id: string
     number: string
     status: string
+    total?: {
+      gross: {
+        amount: number
+        currency: string
+      }
+    }
   }
   errors?: Array<{ field?: string; message: string; code?: string }>
 }> {
   const mutation = `
-    mutation CompleteSaleorCheckout($checkoutId: ID!) {
-      checkoutComplete(checkoutId: $checkoutId) {
+    mutation CompleteSaleorCheckout($id: ID!) {
+      checkoutComplete(id: $id) {
         order {
           id
           number
           status
+          total {
+            gross {
+              amount
+              currency
+            }
+          }
         }
         errors {
           field
@@ -492,12 +718,18 @@ export async function completeSaleorCheckout(checkoutId: string): Promise<{
         id: string
         number: string
         status: string
+        total?: {
+          gross: {
+            amount: number
+            currency: string
+          }
+        }
       }
       errors: Array<{ field?: string; message: string; code?: string }>
     }
   }>({
     query: mutation,
-    variables: { checkoutId },
+    variables: { id: checkoutId },
   })
 
   const payload = res.data?.checkoutComplete
