@@ -26,6 +26,7 @@ start_containers() {
       -e PORT="$PORT" \
       -e NODE_ENV="production" \
       -e SALEOR_API_ENDPOINT="http://192.168.64.1:8003/graphql/" \
+      -e SALEOR_CHANNEL="bdgy-channel" \
       "$IMAGE_NAME" || true
   elif ! "$CONTAINER_BIN" list | grep -q "$CONTAINER_NAME"; then
     echo "🔄 正在启动现有容器 $CONTAINER_NAME..."

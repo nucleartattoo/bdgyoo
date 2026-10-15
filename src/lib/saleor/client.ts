@@ -10,7 +10,7 @@ const STORAGE_TOKEN_KEY = 'bdgy_saleor_token_override'
 
 export function getSaleorConfig(): SaleorConfig {
   let endpoint = 'http://localhost:8003/graphql/'
-  let channel = 'default-channel'
+  let channel = 'bdgy-channel'
   let token = 'Se9kT7tiDTO9buCbGYxTNhA4tvnuwg'
 
   if (typeof window !== 'undefined') {
