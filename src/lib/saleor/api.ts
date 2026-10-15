@@ -752,3 +752,125 @@ export async function completeSaleorCheckout(checkoutId: string): Promise<{
     errors: res.errors || [{ message: 'Failed to complete checkout' }],
   }
 }
+
+export interface SaleorOrderSummary {
+  id: string
+  number: string
+  status: string
+  created: string
+  userEmail: string
+  total: {
+    gross: {
+      amount: number
+      currency: string
+    }
+  }
+  shippingPrice?: {
+    gross: {
+      amount: number
+    }
+  }
+  shippingAddress?: {
+    firstName: string
+    lastName: string
+    streetAddress1: string
+    streetAddress2?: string
+    city: string
+    countryArea?: string
+    postalCode: string
+  }
+  lines: Array<{
+    id: string
+    productName: string
+    variantName?: string
+    quantity: number
+    unitPrice: {
+      gross: {
+        amount: number
+        currency: string
+      }
+    }
+  }>
+}
+
+/**
+ * Query real Saleor orders by search query (order number or email)
+ */
+export async function searchSaleorOrders(search?: string): Promise<{
+  success: boolean
+  orders: SaleorOrderSummary[]
+  errors?: Array<{ message: string }>
+}> {
+  const query = `
+    query SearchOrders($search: String) {
+      orders(first: 20, filter: { search: $search }) {
+        edges {
+          node {
+            id
+            number
+            status
+            created
+            userEmail
+            total {
+              gross {
+                amount
+                currency
+              }
+            }
+            shippingPrice {
+              gross {
+                amount
+              }
+            }
+            shippingAddress {
+              firstName
+              lastName
+              streetAddress1
+              streetAddress2
+              city
+              countryArea
+              postalCode
+            }
+            lines {
+              id
+              productName
+              variantName
+              quantity
+              unitPrice {
+                gross {
+                  amount
+                  currency
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const res = await saleorFetch<{
+    orders: {
+      edges: Array<{
+        node: SaleorOrderSummary
+      }>
+    }
+  }>({
+    query,
+    variables: search ? { search } : {},
+  })
+
+  if (res.errors && res.errors.length > 0) {
+    return {
+      success: false,
+      orders: [],
+      errors: res.errors,
+    }
+  }
+
+  const orders = res.data?.orders?.edges?.map((e) => e.node) || []
+  return {
+    success: true,
+    orders,
+  }
+}
