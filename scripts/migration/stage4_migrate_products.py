@@ -119,8 +119,16 @@ def migrate_products(limit=None, dry_run=False):
             s_prod_id = s_prod.get("id") if s_prod else f"mock-prod-{p_id}"
             state.set_product(p_id, s_prod_id)
 
-            # 2. Publish to Channel
-            client.update_product_channel_listing(s_prod_id, channel_id, is_published=True)
+            # 2. Publish to Channels (Default and bdgy-channel)
+            channel_ids = [channel_id]
+            if channel_id != "Q2hhbm5lbDoy":
+                channel_ids.append("Q2hhbm5lbDoy")
+
+            for ch_id in channel_ids:
+                try:
+                    client.update_product_channel_listing(s_prod_id, ch_id, is_published=True)
+                except Exception:
+                    pass
 
             # 3. Handle Variants
             warehouse_id = config.get("warehouse_id")
@@ -131,14 +139,12 @@ def migrate_products(limit=None, dry_run=False):
                     c_sku = child.get("sku")
                     c_name = child.get("name", c_sku)
                     c_price = float(child.get("price") or price)
+                    listings = [{"channelId": ch, "price": c_price} for ch in channel_ids]
                     v_item = {
                         "sku": c_sku,
                         "name": c_name,
                         "attributes": [],
-                        "channelListings": [{
-                            "channelId": channel_id,
-                            "price": c_price
-                        }]
+                        "channelListings": listings
                     }
                     if warehouse_id:
                         v_item["stocks"] = [{
@@ -150,14 +156,12 @@ def migrate_products(limit=None, dry_run=False):
                     client.create_variant_bulk(s_prod_id, variants_input)
             else:
                 # Standalone simple product
+                listings = [{"channelId": ch, "price": price} for ch in channel_ids]
                 simple_v = {
                     "sku": sku,
                     "name": name,
                     "attributes": [],
-                    "channelListings": [{
-                        "channelId": channel_id,
-                        "price": price
-                    }]
+                    "channelListings": listings
                 }
                 if warehouse_id:
                     simple_v["stocks"] = [{
@@ -166,19 +170,26 @@ def migrate_products(limit=None, dry_run=False):
                     }]
                 client.create_variant_bulk(s_prod_id, [simple_v])
 
-            # 3. Handle Media Images
-            media_entries = p.get("media_gallery_entries", [])
-            for m in media_entries[:3]: # First 3 photos
-                img_file = m.get("file", "")
-                if img_file:
-                    minio_url = f"https://minio.k8s.bdgyoo.com/bdgy-media/media/catalog/product{img_file}"
-                    client.create_product_media(s_prod_id, minio_url, alt=name)
+            # 4. Handle Media Images
+            try:
+                media_entries = p.get("media_gallery_entries", [])
+                for m in media_entries[:3]: # First 3 photos
+                    img_file = m.get("file", "")
+                    if img_file:
+                        minio_url = f"https://minio.k8s.bdgyoo.com/bdgy-media/media/catalog/product{img_file}"
+                        client.create_product_media(s_prod_id, minio_url, alt=name)
+            except Exception:
+                pass
+
+            if success_count % 20 == 0:
+                state.save()
 
             print(f" ✅ Success -> {s_prod_id}")
             success_count += 1
         except Exception as e:
             print(f" ❌ Error: {e}")
 
+    state.save()
     print(f"\nProducts Migration Finished: {success_count} migrated, {skipped_count} skipped.")
 
 if __name__ == "__main__":
