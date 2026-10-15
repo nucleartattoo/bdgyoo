@@ -360,7 +360,7 @@ function CartPage() {
 
             <Link
               to="/checkout"
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-amber-500 py-3.5 text-sm font-bold text-black transition hover:bg-amber-400 shadow-lg shadow-amber-500/10 active:scale-[0.99]"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#E50914] py-3.5 text-sm font-bold text-white transition hover:bg-red-600 shadow-lg shadow-red-900/30 active:scale-[0.99]"
             >
               <span>Proceed to Checkout</span>
               <ArrowRight className="h-4 w-4" />

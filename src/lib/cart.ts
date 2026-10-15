@@ -77,14 +77,21 @@ export const cartStore = {
   },
 
   addItem(
-    item: Omit<CartItem, 'id' | 'quantity'> & { id?: string; quantity?: number },
+    item: Omit<CartItem, 'id' | 'quantity' | 'options' | 'productId' | 'slug'> & {
+      id?: string
+      productId?: string
+      slug?: string
+      options?: CartItemOption[]
+      quantity?: number
+    },
     quantity = 1,
   ): void {
-    const optionKey = item.options
+    const opts = item.options || []
+    const optionKey = opts
       .map((o) => `${o.label}:${o.value}`)
       .sort()
       .join('|')
-    const itemId = item.id || `${item.productId}__${optionKey || 'default'}`
+    const itemId = item.id || `${item.productId || item.sku}__${optionKey || 'default'}`
 
     const existingIndex = currentState.items.findIndex((i) => i.id === itemId)
 
@@ -99,7 +106,13 @@ export const cartStore = {
       newItems = [
         ...currentState.items,
         {
-          ...item,
+          productId: item.productId || item.sku,
+          name: item.name,
+          slug: item.slug || '',
+          sku: item.sku,
+          image: item.image,
+          price: item.price,
+          options: opts,
           id: itemId,
           quantity,
         },
