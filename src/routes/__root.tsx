@@ -30,7 +30,7 @@ export const Route = createRootRouteWithContext<RootContext>()({
 function RootComponent() {
   return (
     <RootDocument>
-      <div className="flex min-h-screen flex-col bg-zinc-950 text-zinc-100">
+      <div className="flex min-h-screen flex-col bg-[#141414] text-zinc-100">
         <Header />
         <CategoryNav />
         <main className="flex-1">
@@ -48,7 +48,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <head>
         <HeadContent />
       </head>
-      <body className="bg-zinc-950 antialiased selection:bg-amber-500 selection:text-black">
+      <body className="bg-[#141414] antialiased selection:bg-[#E50914] selection:text-white">
         {children}
         <Scripts />
       </body>

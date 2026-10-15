@@ -224,3 +224,91 @@ export function searchProducts(query: string, limit = 20): CatalogProduct[] {
     })
     .slice(0, limit)
 }
+
+/**
+ * Returns flagship hero product for the Netflix billboard
+ */
+export function getHeroProduct(): CatalogProduct {
+  const hero =
+    allProducts.find(
+      (p) =>
+        p.is_visible_individually &&
+        p.image &&
+        (p.name.includes('Ambition Soldier Wireless') || p.sku === 'AB-Hello'),
+    ) || allProducts[0]
+  return hero
+}
+
+/**
+ * Top 10 Bestsellers for the Netflix Ranked Shelf
+ */
+export function getTop10Products(): CatalogProduct[] {
+  return allProducts
+    .filter(
+      (p) =>
+        p.is_visible_individually &&
+        p.image &&
+        p.price > 0 &&
+        (p.name.includes('Wireless') || p.name.includes('Tattoo Machine') || p.name.includes('Cartridge')),
+    )
+    .slice(0, 10)
+}
+
+/**
+ * Wireless rotary machine pens
+ */
+export function getWirelessMachines(limit = 12): CatalogProduct[] {
+  return allProducts
+    .filter(
+      (p) =>
+        p.is_visible_individually &&
+        p.image &&
+        (p.name.toLowerCase().includes('wireless') || p.name.toLowerCase().includes('tattoo machine')),
+    )
+    .slice(0, limit)
+}
+
+/**
+ * Professional tattoo cartridge needles
+ */
+export function getCartridgeNeedles(limit = 12): CatalogProduct[] {
+  return allProducts
+    .filter(
+      (p) =>
+        p.is_visible_individually &&
+        p.image &&
+        (p.name.toLowerCase().includes('needle') || p.name.toLowerCase().includes('cartridge')),
+    )
+    .slice(0, limit)
+}
+
+/**
+ * Power supplies, wireless batteries, and foot pedals
+ */
+export function getPowerSupplies(limit = 12): CatalogProduct[] {
+  return allProducts
+    .filter(
+      (p) =>
+        p.is_visible_individually &&
+        p.image &&
+        (p.name.toLowerCase().includes('power') ||
+          p.name.toLowerCase().includes('battery') ||
+          p.name.toLowerCase().includes('pedal') ||
+          p.name.toLowerCase().includes('rca')),
+    )
+    .slice(0, limit)
+}
+
+/**
+ * Complete tattoo kits & bundles
+ */
+export function getTattooKits(limit = 12): CatalogProduct[] {
+  return allProducts
+    .filter(
+      (p) =>
+        p.is_visible_individually &&
+        p.image &&
+        p.name.toLowerCase().includes('kit'),
+    )
+    .slice(0, limit)
+}

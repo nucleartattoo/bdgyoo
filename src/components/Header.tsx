@@ -56,7 +56,7 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-zinc-800/80 bg-zinc-950/85 backdrop-blur-md">
+      <header className="sticky top-0 z-50 w-full border-b border-zinc-800/80 bg-[#141414]/95 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Brand Logo & Mobile Trigger */}
           <div className="flex items-center gap-4 lg:gap-8">
@@ -71,35 +71,63 @@ export function Header() {
 
             <Link
               to="/"
-              className="flex items-center gap-2.5 text-xl font-bold tracking-tight text-white group"
+              className="flex items-center gap-2 text-xl font-black tracking-tighter text-white group"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded bg-gradient-to-br from-amber-400 to-amber-600 font-black text-black shadow-sm group-hover:scale-105 transition-transform">
+              <span className="flex h-7 w-7 items-center justify-center rounded bg-[#E50914] font-black text-white shadow-md shadow-red-900/50 group-hover:scale-105 transition-transform text-sm">
                 B
               </span>
-              <span className="tracking-wider">BDGYOO</span>
+              <span className="tracking-widest uppercase font-black text-[#E50914] text-lg">BDGY</span>
             </Link>
 
             {/* Desktop Top Navigation */}
             <nav className="hidden lg:flex items-center gap-6">
-              {topCategories.slice(0, 5).map((category) => (
-                <Link
-                  key={category.id}
-                  to="/categories/$slug"
-                  params={{ slug: category.slug }}
-                  className="text-xs font-semibold uppercase tracking-wider text-zinc-300 transition-colors hover:text-amber-400"
-                  activeProps={{ className: 'text-amber-400 font-bold' }}
-                >
-                  {category.name}
-                </Link>
-              ))}
+              <Link
+                to="/"
+                className="text-xs font-bold uppercase tracking-wider text-zinc-300 transition-colors hover:text-white"
+                activeProps={{ className: 'text-white font-extrabold' }}
+              >
+                Home
+              </Link>
+              <Link
+                to="/categories/$slug"
+                params={{ slug: 'tattoo-machines' }}
+                className="text-xs font-semibold uppercase tracking-wider text-zinc-400 transition-colors hover:text-white"
+                activeProps={{ className: 'text-white font-bold' }}
+              >
+                Wireless Machines
+              </Link>
+              <Link
+                to="/categories/$slug"
+                params={{ slug: 'tattoo-needles' }}
+                className="text-xs font-semibold uppercase tracking-wider text-zinc-400 transition-colors hover:text-white"
+                activeProps={{ className: 'text-white font-bold' }}
+              >
+                Needles
+              </Link>
+              <Link
+                to="/categories/$slug"
+                params={{ slug: 'tattoo-power-supply' }}
+                className="text-xs font-semibold uppercase tracking-wider text-zinc-400 transition-colors hover:text-white"
+                activeProps={{ className: 'text-white font-bold' }}
+              >
+                Power
+              </Link>
+              <Link
+                to="/categories/$slug"
+                params={{ slug: 'tattoo-kit' }}
+                className="text-xs font-semibold uppercase tracking-wider text-zinc-400 transition-colors hover:text-white"
+                activeProps={{ className: 'text-white font-bold' }}
+              >
+                Kits
+              </Link>
 
               <Link
                 to="/saleor"
-                className="flex items-center gap-1.5 rounded-full border border-amber-500/25 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-400 hover:bg-amber-500/20 hover:border-amber-400 transition"
-                activeProps={{ className: 'border-amber-400 bg-amber-500/25 text-white' }}
+                className="flex items-center gap-1.5 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-400 hover:bg-red-500/20 hover:border-red-400 transition"
+                activeProps={{ className: 'border-red-400 bg-red-500/25 text-white' }}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Saleor GraphQL
+                Saleor Live
               </Link>
             </nav>
           </div>
