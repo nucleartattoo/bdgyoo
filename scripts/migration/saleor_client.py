@@ -22,9 +22,10 @@ class SaleorClient:
         headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "Host": "api.saleor.kubernetes.nucleartattoosupply.com",
-            "X-Forwarded-Proto": "https",
         }
+        if "kubernetes" in self.endpoint:
+            headers["Host"] = "api.saleor.kubernetes.nucleartattoosupply.com"
+            headers["X-Forwarded-Proto"] = "https"
         if self.token:
             headers["Authorization"] = f"Bearer {self.token}"
 

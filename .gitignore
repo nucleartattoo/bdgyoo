@@ -7,6 +7,8 @@ routeTree.gen.ts
 .env.local
 .npmrc
 *.log
+.logs/
+artifacts/*backup*.json
 .DS_Store
 __pycache__/
 *.pyc

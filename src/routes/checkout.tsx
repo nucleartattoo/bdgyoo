@@ -110,14 +110,14 @@ function CheckoutPage() {
 
       // Map cart items or use guaranteed in-stock channel variant fallback
       const checkoutLines = items.map((item) => ({
-        variantId: item.id.startsWith('UHJvZHVjd') ? item.id : 'UHJvZHVjdFZhcmlhbnQ6NzY0MQ==',
+        variantId: item.id.startsWith('UHJvZHVjd') ? item.id : 'UHJvZHVjdFZhcmlhbnQ6Mg==',
         quantity: item.quantity,
       }))
 
       // Fallback if empty lines
       if (checkoutLines.length === 0) {
         checkoutLines.push({
-          variantId: 'UHJvZHVjdFZhcmlhbnQ6NzY0MQ==',
+          variantId: 'UHJvZHVjdFZhcmlhbnQ6Mg==',
           quantity: 1,
         })
       }
