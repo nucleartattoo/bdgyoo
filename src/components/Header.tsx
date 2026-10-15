@@ -76,7 +76,9 @@ export function Header() {
               <span className="flex h-7 w-7 items-center justify-center rounded bg-[#E50914] font-black text-white shadow-md shadow-red-900/50 group-hover:scale-105 transition-transform text-sm">
                 B
               </span>
-              <span className="tracking-widest uppercase font-black text-[#E50914] text-lg">BDGY</span>
+              <span className="tracking-widest uppercase font-black text-[#E50914] text-lg">
+                BDGY
+              </span>
             </Link>
 
             {/* Desktop Top Navigation */}

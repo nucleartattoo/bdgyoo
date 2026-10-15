@@ -1,8 +1,8 @@
 import { Link } from '@tanstack/react-router'
 import { Check, Info, Play, ShoppingBag, Sparkles, Star, Zap } from 'lucide-react'
 import { useState } from 'react'
-import type { CatalogProduct } from '~/lib/catalog'
 import { useCart } from '~/lib/cart'
+import type { CatalogProduct } from '~/lib/catalog'
 import { formatPrice } from '~/lib/utils'
 
 interface NetflixBillboardProps {
@@ -16,11 +16,13 @@ export function NetflixBillboard({ product, onOpenPreview }: NetflixBillboardPro
 
   const handleQuickAdd = () => {
     addItem({
-      id: product.id,
+      productId: product.id,
+      slug: product.slug,
       sku: product.sku,
       name: product.name,
       price: product.price,
       image: product.image,
+      options: [],
       quantity: 1,
     })
     setAdded(true)
@@ -93,9 +95,7 @@ export function NetflixBillboard({ product, onOpenPreview }: NetflixBillboardPro
 
           {/* Price Bar */}
           <div className="flex items-baseline gap-3 pt-2">
-            <span className="text-3xl font-black text-white">
-              {formatPrice(product.price)}
-            </span>
+            <span className="text-3xl font-black text-white">{formatPrice(product.price)}</span>
             {product.special_price && (
               <span className="text-base text-zinc-500 line-through">
                 {formatPrice(product.special_price)}

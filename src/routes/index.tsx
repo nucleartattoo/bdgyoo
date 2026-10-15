@@ -45,10 +45,7 @@ function NetflixCinemaHomePage() {
   return (
     <div className="bg-[#141414] text-white min-h-screen pb-20 space-y-10">
       {/* 1. Cinematic Hero Billboard */}
-      <NetflixBillboard
-        product={heroProduct}
-        onOpenPreview={(p) => setPreviewProduct(p)}
-      />
+      <NetflixBillboard product={heroProduct} onOpenPreview={(p) => setPreviewProduct(p)} />
 
       {/* 2. Classic Netflix Ranked Row: TOP 10 IN USA STUDIOS */}
       <section className="-mt-16 sm:-mt-20 relative z-30">
@@ -206,10 +203,7 @@ function NetflixCinemaHomePage() {
       </section>
 
       {/* 9. Floating Quick Preview Modal */}
-      <NetflixQuickPreviewModal
-        product={previewProduct}
-        onClose={() => setPreviewProduct(null)}
-      />
+      <NetflixQuickPreviewModal product={previewProduct} onClose={() => setPreviewProduct(null)} />
     </div>
   )
 }

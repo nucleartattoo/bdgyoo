@@ -1,8 +1,8 @@
 import { Link } from '@tanstack/react-router'
 import { Check, ExternalLink, Plus, ShieldCheck, ShoppingBag, Truck, X, Zap } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import type { CatalogProduct, ProductChildVariant } from '~/lib/catalog'
 import { useCart } from '~/lib/cart'
+import type { CatalogProduct, ProductChildVariant } from '~/lib/catalog'
 import { formatPrice } from '~/lib/utils'
 
 interface NetflixQuickPreviewModalProps {
@@ -42,11 +42,13 @@ export function NetflixQuickPreviewModal({ product, onClose }: NetflixQuickPrevi
 
   const handleAdd = () => {
     addItem({
-      id: selectedChild ? `${product.id}-${selectedChild.id}` : product.id,
+      productId: product.id,
+      slug: product.slug,
       sku: currentSku,
       name: currentName,
       price: currentPrice,
       image: activeImage,
+      options: selectedChild ? [{ label: 'Variant', value: selectedChild.name }] : [],
       quantity: 1,
     })
     setAdded(true)
@@ -56,15 +58,18 @@ export function NetflixQuickPreviewModal({ product, onClose }: NetflixQuickPrevi
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-y-auto">
       {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity"
+      <button
+        type="button"
+        className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity border-0 cursor-default w-full h-full"
         onClick={onClose}
+        aria-label="Close modal backdrop"
       />
 
       {/* Modal Dialog Card */}
       <div
+        role="dialog"
+        aria-modal="true"
         className="relative z-10 w-full max-w-4xl overflow-hidden rounded-xl border border-zinc-700 bg-[#181818] text-white shadow-2xl transition-all"
-        onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
@@ -107,9 +112,7 @@ export function NetflixQuickPreviewModal({ product, onClose }: NetflixQuickPrevi
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800 pb-6">
             <div>
               <div className="flex items-baseline gap-3">
-                <span className="text-3xl font-black text-white">
-                  {formatPrice(currentPrice)}
-                </span>
+                <span className="text-3xl font-black text-white">{formatPrice(currentPrice)}</span>
                 {product.special_price && (
                   <span className="text-base text-zinc-500 line-through">
                     {formatPrice(product.special_price)}
@@ -179,9 +182,7 @@ export function NetflixQuickPreviewModal({ product, onClose }: NetflixQuickPrevi
                       }`}
                     >
                       <span>{child.name}</span>
-                      <span className="ml-1.5 text-zinc-500 font-mono">
-                        ${child.price}
-                      </span>
+                      <span className="ml-1.5 text-zinc-500 font-mono">${child.price}</span>
                     </button>
                   )
                 })}
@@ -192,15 +193,21 @@ export function NetflixQuickPreviewModal({ product, onClose }: NetflixQuickPrevi
           {/* Studio Specs & Quality Assurance Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs pt-2">
             <div className="rounded-lg border border-zinc-800/80 bg-zinc-900/50 p-3">
-              <span className="text-zinc-500 block text-[10px] uppercase font-bold">Motor Type</span>
+              <span className="text-zinc-500 block text-[10px] uppercase font-bold">
+                Motor Type
+              </span>
               <span className="text-zinc-200 font-medium">Custom Coreless</span>
             </div>
             <div className="rounded-lg border border-zinc-800/80 bg-zinc-900/50 p-3">
-              <span className="text-zinc-500 block text-[10px] uppercase font-bold">Stroke Spec</span>
+              <span className="text-zinc-500 block text-[10px] uppercase font-bold">
+                Stroke Spec
+              </span>
               <span className="text-zinc-200 font-medium">4.0mm / Adjustable</span>
             </div>
             <div className="rounded-lg border border-zinc-800/80 bg-zinc-900/50 p-3">
-              <span className="text-zinc-500 block text-[10px] uppercase font-bold">Needle System</span>
+              <span className="text-zinc-500 block text-[10px] uppercase font-bold">
+                Needle System
+              </span>
               <span className="text-zinc-200 font-medium">Universal Cartridge</span>
             </div>
             <div className="rounded-lg border border-zinc-800/80 bg-zinc-900/50 p-3">
@@ -212,7 +219,9 @@ export function NetflixQuickPreviewModal({ product, onClose }: NetflixQuickPrevi
           {/* Description Snippet */}
           <div className="text-xs leading-relaxed text-zinc-400">
             <p className="line-clamp-4">
-              {product.short_description || product.description || 'Professional grade tattoo hardware crafted for high stability, clean needle drive, and low skin trauma.'}
+              {product.short_description ||
+                product.description ||
+                'Professional grade tattoo hardware crafted for high stability, clean needle drive, and low skin trauma.'}
             </p>
           </div>
         </div>

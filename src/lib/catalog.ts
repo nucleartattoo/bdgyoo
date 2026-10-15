@@ -249,7 +249,9 @@ export function getTop10Products(): CatalogProduct[] {
         p.is_visible_individually &&
         p.image &&
         p.price > 0 &&
-        (p.name.includes('Wireless') || p.name.includes('Tattoo Machine') || p.name.includes('Cartridge')),
+        (p.name.includes('Wireless') ||
+          p.name.includes('Tattoo Machine') ||
+          p.name.includes('Cartridge')),
     )
     .slice(0, 10)
 }
@@ -263,7 +265,8 @@ export function getWirelessMachines(limit = 12): CatalogProduct[] {
       (p) =>
         p.is_visible_individually &&
         p.image &&
-        (p.name.toLowerCase().includes('wireless') || p.name.toLowerCase().includes('tattoo machine')),
+        (p.name.toLowerCase().includes('wireless') ||
+          p.name.toLowerCase().includes('tattoo machine')),
     )
     .slice(0, limit)
 }
@@ -304,11 +307,34 @@ export function getPowerSupplies(limit = 12): CatalogProduct[] {
  */
 export function getTattooKits(limit = 12): CatalogProduct[] {
   return allProducts
-    .filter(
-      (p) =>
-        p.is_visible_individually &&
-        p.image &&
-        p.name.toLowerCase().includes('kit'),
-    )
+    .filter((p) => p.is_visible_individually && p.image && p.name.toLowerCase().includes('kit'))
+    .slice(0, limit)
+}
+
+/**
+ * Get complementary / related products for PDP recommendations
+ */
+export function getRelatedProducts(product: CatalogProduct, limit = 6): CatalogProduct[] {
+  const currentCids = new Set(product.category_ids)
+  const isMachine =
+    product.name.toLowerCase().includes('machine') ||
+    product.name.toLowerCase().includes('wireless')
+
+  return allProducts
+    .filter((p) => {
+      if (p.id === product.id || !p.is_visible_individually || !p.image || p.price <= 0) {
+        return false
+      }
+      // If current product is a machine, suggest cartridges and batteries as studio cross-sells
+      if (isMachine) {
+        const isNeedle =
+          p.name.toLowerCase().includes('cartridge') || p.name.toLowerCase().includes('needle')
+        const isPower =
+          p.name.toLowerCase().includes('battery') || p.name.toLowerCase().includes('power')
+        if (isNeedle || isPower) return true
+      }
+      // Or share at least one category
+      return p.category_ids.some((cid) => currentCids.has(cid))
+    })
     .slice(0, limit)
 }

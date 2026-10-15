@@ -1,16 +1,8 @@
 import { Link } from '@tanstack/react-router'
-import {
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  Eye,
-  Plus,
-  ShoppingBag,
-  Sparkles,
-} from 'lucide-react'
+import { Check, ChevronLeft, ChevronRight, Eye, Plus, ShoppingBag, Sparkles } from 'lucide-react'
 import { useRef, useState } from 'react'
-import type { CatalogProduct } from '~/lib/catalog'
 import { useCart } from '~/lib/cart'
+import type { CatalogProduct } from '~/lib/catalog'
 import { formatPrice } from '~/lib/utils'
 
 interface NetflixRowProps {
@@ -57,11 +49,13 @@ export function NetflixRow({
     e.preventDefault()
     e.stopPropagation()
     addItem({
-      id: product.id,
+      productId: product.id,
+      slug: product.slug,
       sku: product.sku,
       name: product.name,
       price: product.price,
       image: product.image,
+      options: [],
       quantity: 1,
     })
     setAddedSku(product.sku)
@@ -125,9 +119,7 @@ export function NetflixRow({
               <div
                 key={product.id}
                 className={`flex-none group/card relative select-none transition-all duration-300 ${
-                  isRanked
-                    ? 'w-64 sm:w-72 flex items-center'
-                    : 'w-48 sm:w-56 md:w-64'
+                  isRanked ? 'w-64 sm:w-72 flex items-center' : 'w-48 sm:w-56 md:w-64'
                 }`}
               >
                 {/* Netflix Iconic Oversized Rank Number for Top 10 */}
@@ -204,12 +196,8 @@ export function NetflixRow({
                   {/* Card Info Details */}
                   <div className="p-3 space-y-1.5 bg-[#181818]">
                     <div className="flex items-center justify-between text-[10px]">
-                      <span className="text-emerald-400 font-bold">
-                        98% Match
-                      </span>
-                      <span className="text-zinc-500 font-mono">
-                        {product.sku}
-                      </span>
+                      <span className="text-emerald-400 font-bold">98% Match</span>
+                      <span className="text-zinc-500 font-mono">{product.sku}</span>
                     </div>
 
                     <Link

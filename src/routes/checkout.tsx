@@ -96,7 +96,7 @@ function CheckoutPage() {
   const [confirmedOrder, setConfirmedOrder] = useState<OrderConfirmationData | null>(null)
 
   // Shipping cost calculation based on method
-  const shippingFee = shippingMethod === 'express' ? 35.0 : 15.0
+  const shippingFee: number = shippingMethod === 'express' ? 35.0 : 15.0
   const orderTotal = Math.max(0, subtotal - discountAmount + shippingFee)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -128,7 +128,9 @@ function CheckoutPage() {
       })
 
       if (!checkoutRes.success || !checkoutRes.checkout?.id) {
-        throw new Error(checkoutRes.errors?.[0]?.message || 'Failed to initialize Saleor checkout session')
+        throw new Error(
+          checkoutRes.errors?.[0]?.message || 'Failed to initialize Saleor checkout session',
+        )
       }
 
       const checkoutId = checkoutRes.checkout.id
@@ -244,7 +246,9 @@ function CheckoutPage() {
         customerEmail: formData.email,
         customerName: `${formData.firstName} ${formData.lastName}`,
         shippingAddress: `${formData.address}, ${formData.apartment ? `${formData.apartment}, ` : ''}${formData.city}, ${formData.state} ${formData.postalCode}, ${formData.country}`,
-        shippingMethod: chosenMethod?.name || (shippingMethod === 'express' ? 'UPS 2nd Day Air' : 'UPS Standard Ground'),
+        shippingMethod:
+          chosenMethod?.name ||
+          (shippingMethod === 'express' ? 'UPS 2nd Day Air' : 'UPS Standard Ground'),
         paymentMethod:
           paymentMethod === 'card'
             ? 'Stripe Credit Card (•••• 4242)'

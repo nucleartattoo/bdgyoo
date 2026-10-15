@@ -468,7 +468,7 @@ function SaleorIntegrationPage() {
               className="w-full flex items-center justify-center gap-2 rounded-lg bg-emerald-500 py-3 text-xs font-bold text-black transition hover:bg-emerald-400 disabled:opacity-50"
             >
               <Play className={`h-4 w-4 ${checkoutTesting ? 'animate-spin' : ''}`} />
-              {checkoutTesting ? (checkoutStep || 'Processing...') : 'Run Full E2E Checkout Flow'}
+              {checkoutTesting ? checkoutStep || 'Processing...' : 'Run Full E2E Checkout Flow'}
             </button>
 
             {checkoutResult && (
@@ -479,20 +479,28 @@ function SaleorIntegrationPage() {
                 {checkoutResult.success && checkoutResult.order ? (
                   <div className="space-y-1.5 text-emerald-400">
                     <p className="font-bold flex items-center gap-1.5 text-xs text-emerald-300">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Official Order #{checkoutResult.order.number} Created!
+                      <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Official Order #
+                      {checkoutResult.order.number} Created!
                     </p>
                     <div className="bg-zinc-950 p-2.5 rounded border border-emerald-500/30 text-[10px] space-y-1">
                       <p className="text-zinc-300">
                         Order ID: <span className="text-amber-400">{checkoutResult.order.id}</span>
                       </p>
                       <p className="text-zinc-300">
-                        Status: <span className="text-emerald-400 font-bold">{checkoutResult.order.status}</span>
+                        Status:{' '}
+                        <span className="text-emerald-400 font-bold">
+                          {checkoutResult.order.status}
+                        </span>
                       </p>
                       <p className="text-zinc-300">
-                        Shipping: <span className="text-white">{checkoutResult.shippingMethod}</span>
+                        Shipping:{' '}
+                        <span className="text-white">{checkoutResult.shippingMethod}</span>
                       </p>
                       <p className="text-zinc-300">
-                        Total Settled: <span className="text-emerald-400 font-bold">${checkoutResult.grandTotal} {checkoutResult.currency}</span>
+                        Total Settled:{' '}
+                        <span className="text-emerald-400 font-bold">
+                          ${checkoutResult.grandTotal} {checkoutResult.currency}
+                        </span>
                       </p>
                     </div>
                   </div>
